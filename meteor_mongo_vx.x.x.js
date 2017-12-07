@@ -15,7 +15,7 @@ declare class Meteor$Mongo$RawCollection<T> {
   bulkWrite(pipeline: {}[]): Promise<{}>;
   deleteMany(selector: Meteor$Mongo$Selector): Promise<{}>;
   insertMany(docs: T[]): Promise<{}>;
-  initializeUnorderedMeteor$Mongo$BulkOp(): Meteor$Mongo$BulkOp;
+  initializeUnorderedBulkOp(): Meteor$Mongo$BulkOp;
 }
 
 declare type Meteor$Mongo$Selector = {
