@@ -1,4 +1,4 @@
-declare class Meteor {
+declare class Meteor$Meteor {
   Error: typeof Meteor$Error;
   absoluteUrl(
     path?: string,
@@ -222,6 +222,6 @@ declare type Meteor$User = {
 
 declare module 'meteor/meteor' {
   declare module.exports: {
-    Meteor: Meteor
+    Meteor: Meteor$Meteor
   };
 }
