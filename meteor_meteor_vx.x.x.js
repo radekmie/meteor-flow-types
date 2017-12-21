@@ -1,4 +1,22 @@
+declare class Meteor$AppCache {
+  config(options: {
+    _disableSizeCheck?: boolean,
+    browsers?: string[],
+    onlineOnly?: string[],
+    [string]: boolean
+  }): void;
+}
+
+declare class Meteor$ConnectionHandle {
+  clientAddress: string;
+  close(): void;
+  httpHeaders: {[string]: string};
+  id: string;
+  onClose(fn: () => mixed): void;
+}
+
 declare class Meteor$Meteor {
+  AppCache: Meteor$AppCache;
   Error: typeof Meteor$Error;
   absoluteUrl(
     path?: string,
