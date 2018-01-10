@@ -1,5 +1,7 @@
 declare class Meteor$Boilerplate {
-  toHTML(data: {}): stream$Duplex;
+  toHTML(extraData?: {}): string;
+  toHTMLAsync(extraData?: {}): Promise<string>;
+  toHTMLStream(extraData?: {}): stream$Duplex;
 }
 
 declare module 'meteor/boilerplate-generator' {
