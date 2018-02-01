@@ -1,5 +1,5 @@
 // TODO: This should be extracted.
-import type {Server} from 'http';
+import type { Server } from "http";
 
 class npm$connect$IncomingMessage extends http$IncomingMessage {
   originalUrl: string;
@@ -22,13 +22,15 @@ type npm$connect$handle =
 
 declare class npm$connect {
   route: string;
-  stack: {handle: npm$connect$handle, route: string}[];
+  stack: { handle: npm$connect$handle, route: string }[];
   use(route: string, handle: npm$connect$handle): npm$connect;
+  use(handle: npm$connect$handle): npm$connect;
 }
 
 declare class Meteor$WebApp {
-  addHtmlAttributeHook(fn: (Meteor$WebApp$Request) => {[string]: string}): void;
+  addHtmlAttributeHook(fn: (Meteor$WebApp$Request) => { [string]: string }): void;
   connectApp: npm$connect;
+  connectHandlers: npm$connect;
   httpServer: Server;
   rawConnectHandlers: npm$connect;
 }
@@ -38,15 +40,15 @@ declare type Meteor$WebApp$Request = {
     major: number,
     minor: number,
     name: string,
-    patch: number
+    patch: number,
   },
-  cookies: {[string]: string},
+  cookies: { [string]: string },
   dynamicBody: string,
   dynamicHead: string,
-  headers: {[string]: string},
+  headers: { [string]: string },
   url: {
-    pathname: string
-  }
+    pathname: string,
+  },
 };
 
 declare class Meteor$WebAppInternals {
@@ -57,9 +59,9 @@ declare class Meteor$WebAppInternals {
       {
         dynamicBody: string,
         dynamicHead: string,
-        headers?: {[string]: string},
+        headers?: { [string]: string },
         statusCode?: number,
-        [string]: string
+        [string]: string,
       },
       string
     ) => boolean
@@ -71,14 +73,14 @@ declare class Meteor$WebAppInternals {
       content?: string,
       hash?: string,
       sourceMapUrl?: string,
-      type?: string
-    }
+      type?: string,
+    },
   };
 }
 
-declare module 'meteor/webapp' {
+declare module "meteor/webapp" {
   declare module.exports: {
     WebApp: Meteor$WebApp,
-    WebAppInternals: Meteor$WebAppInternals
+    WebAppInternals: Meteor$WebAppInternals,
   };
 }

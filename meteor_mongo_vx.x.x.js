@@ -1,5 +1,6 @@
 declare class Meteor$Mongo {
   Collection: typeof Meteor$Mongo$Collection;
+  Cursor: typeof Meteor$Mongo$Cursor;
 }
 
 declare class Meteor$Mongo$BulkOp {
@@ -18,7 +19,7 @@ declare class Meteor$Mongo$BulkOpHandle {
 
 declare class Meteor$Mongo$Collection<T> {
   _ensureIndex(
-    index: {[fieldPath: string]: -1 | 1 | boolean | string},
+    index: { [fieldPath: string]: -1 | 1 | boolean | string },
     options?: {|
       background?: boolean,
       default_language?: string,
@@ -26,65 +27,60 @@ declare class Meteor$Mongo$Collection<T> {
       partialFilterExpression?: Meteor$Mongo$Selector,
       sparse?: boolean,
       unique?: boolean,
-      weights?: {}
+      weights?: {},
     |}
   ): void;
   allow<U>(options: {
     fetch?: string | string[],
     insert?: (userId: string, doc: U) => boolean,
     remove?: (userId: string, doc: U) => boolean,
-    transform?: T => U,
+    transform?: (T) => U,
     update?: (
       userId: string,
       doc: U,
       fieldNames: string[],
       modifier: Meteor$Mongo$Modifier
-    ) => boolean
+    ) => boolean,
   }): boolean;
   constructor(name: string): void;
   deny<U>(options: {
     fetch?: string | string[],
     insert?: (userId: string, doc: U) => boolean,
     remove?: (userId: string, doc: U) => boolean,
-    transform?: T => U,
+    transform?: (T) => U,
     update?: (
       userId: string,
       doc: U,
       fieldNames: string[],
       modifier: Meteor$Mongo$Modifier
-    ) => boolean
+    ) => boolean,
   }): boolean;
   find<U>(
     selector?: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
-    options?: {
-      fields?: Meteor$Mongo$FieldSpecifier,
-      limit?: number,
-      reactive?: boolean,
-      skip?: number,
-      sort?: Meteor$Mongo$SortSpecifier,
-      transform?: T => U
-    }
+    options?: ?$Shape<{
+      fields: Meteor$Mongo$FieldSpecifier,
+      limit: number,
+      reactive: boolean,
+      skip: number,
+      sort: Meteor$Mongo$SortSpecifier,
+      transform: (T) => U,
+    }>
   ): Meteor$Mongo$Cursor<U>;
   findOne<U>(
     selector?: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
-    options?: {
-      fields?: Meteor$Mongo$FieldSpecifier,
-      limit?: number,
-      reactive?: boolean,
-      skip?: number,
-      sort?: Meteor$Mongo$SortSpecifier,
-      transform?: T => U
-    }
+    options?: ?$Shape<{
+      fields: Meteor$Mongo$FieldSpecifier,
+      limit: number,
+      reactive: boolean,
+      skip: number,
+      sort: Meteor$Mongo$SortSpecifier,
+      transform: (T) => U,
+    }>
   ): ?U;
   insert(doc: T): string;
-  insert(
-    doc: T,
-    callback: ((Error, void) => mixed) & ((void, string) => mixed)
-  ): void;
+  insert(doc: T, callback: ((Error, void) => mixed) & ((void, string) => mixed)): void;
   rawCollection(): Meteor$Mongo$RawCollection<T>;
-  remove(
-    selector: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector
-  ): void;
+  remove(selector: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector): void;
   remove(
     selector: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
     callback: (?Error) => mixed
@@ -92,25 +88,25 @@ declare class Meteor$Mongo$Collection<T> {
   update(
     selector: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
     modifier: Meteor$Mongo$Modifier,
-    options?: {multi?: boolean, upsert?: boolean}
+    options?: { multi?: boolean, upsert?: boolean }
   ): number;
   update(
     selector: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
     modifier: Meteor$Mongo$Modifier,
-    options?: {multi?: boolean, upsert?: boolean},
+    options?: { multi?: boolean, upsert?: boolean },
     callback: ((Error, void) => mixed) & ((void, number) => mixed)
   ): void;
   upsert(
     selector: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
     modifier: Meteor$Mongo$Modifier,
-    options?: {multi?: boolean}
-  ): {insertedId?: string, numberAffected: number};
+    options?: { multi?: boolean }
+  ): { insertedId?: string, numberAffected: number };
   upsert(
     selector: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
     modifier: Meteor$Mongo$Modifier,
-    options?: {multi?: boolean},
+    options?: { multi?: boolean },
     callback: ((Error, void) => mixed) &
-      ((void, {insertedId?: string, numberAffected: number}) => mixed)
+      ((void, { insertedId?: string, numberAffected: number }) => mixed)
   ): void;
 }
 
@@ -126,13 +122,13 @@ declare type Meteor$Mongo$FieldSpecifier = {
     | 0
     | 1
     | boolean
-    | {|$elemMatch: Meteor$Mongo$Selector|}
-    | {|$meta: 'textScore'|}
-    | {|$slice: number | [number, number]|}
+    | {| $elemMatch: Meteor$Mongo$Selector |}
+    | {| $meta: "textScore" |}
+    | {| $slice: number | [number, number] |},
 };
 
 declare type Meteor$Mongo$Modifier = {
-  [fieldPath: string]: mixed
+  [fieldPath: string]: mixed,
 };
 
 declare class Meteor$Mongo$ObjectId {
@@ -148,26 +144,26 @@ declare class Meteor$Mongo$RawCollection<T> {
 }
 
 declare type Meteor$Mongo$Selector = {
-  [fieldPath: string]: mixed
+  [fieldPath: string]: mixed,
 };
 
 declare type Meteor$Mongo$SortSpecifier =
-  | {|$natural: -1 | 1|}
-  | {[fieldPath: string]: -1 | 1 | {|$meta: 'textScore'|}};
+  | {| $natural: -1 | 1 |}
+  | { [fieldPath: string]: -1 | 1 | {| $meta: "textScore" |} };
 
 declare class Meteor$MongoInternals {
   NpmModules: {
     mongodb: {
       module: {
-        ObjectId: typeof Meteor$Mongo$ObjectId
-      }
-    }
+        ObjectId: typeof Meteor$Mongo$ObjectId,
+      },
+    },
   };
 }
 
-declare module 'meteor/mongo' {
+declare module "meteor/mongo" {
   declare module.exports: {
     Mongo: Meteor$Mongo,
-    MongoInternals: Meteor$MongoInternals
+    MongoInternals: Meteor$MongoInternals,
   };
 }
