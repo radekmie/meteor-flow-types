@@ -24,11 +24,13 @@ declare class npm$connect {
   route: string;
   stack: {handle: npm$connect$handle, route: string}[];
   use(route: string, handle: npm$connect$handle): npm$connect;
+  use(handle: npm$connect$handle): npm$connect;
 }
 
 declare class Meteor$WebApp {
   addHtmlAttributeHook(fn: (Meteor$WebApp$Request) => {[string]: string}): void;
   connectApp: npm$connect;
+  connectHandlers: npm$connect;
   httpServer: Server;
   rawConnectHandlers: npm$connect;
 }

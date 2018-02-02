@@ -1,4 +1,5 @@
 declare class Meteor$Tracker {
+  Computation: typeof Meteor$Tracker$Computation;
   active: boolean;
   afterFlush(callback: () => mixed): void;
   autorun(

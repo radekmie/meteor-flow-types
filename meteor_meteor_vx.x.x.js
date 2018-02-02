@@ -22,6 +22,18 @@ declare class Meteor$Meteor {
     path?: string,
     options?: {replaceLocalhost?: boolean, rootUrl?: string, secure?: boolean}
   ): string;
+  apply<T>(
+    name: string,
+    args: $ReadOnlyArray<mixed>,
+    options?: ?$Shape<{
+      wait: boolean,
+      onResultReceived: ((Error | Meteor$Error, void) => mixed) &
+        ((void, T) => mixed),
+      noRetry: boolean,
+      throwStubExceptions: boolean
+    }>,
+    callback?: ((Error | Meteor$Error, void) => mixed) & ((void, T) => mixed)
+  ): void;
   bindEnvironment<T: () => mixed>(
     fn: T,
     onException?: string | (Error => mixed),
@@ -31,28 +43,52 @@ declare class Meteor$Meteor {
     method: string,
     arg1: A1,
     arg2: A2,
-    callback?: ((Error, void) => mixed) & ((void, T) => mixed)
+    callback?: ((Error | Meteor$Error, void) => mixed) & ((void, T) => mixed)
   ): void;
   call<T, A1>(
     method: string,
     arg1: A1,
-    callback?: ((Error, void) => mixed) & ((void, T) => mixed)
+    callback?: ((Error | Meteor$Error, void) => mixed) & ((void, T) => mixed)
   ): void;
   call<T>(
     method: string,
-    callback?: ((Error, void) => mixed) & ((void, T) => mixed)
+    callback?: ((Error | Meteor$Error, void) => mixed) & ((void, T) => mixed)
   ): void;
   defer(fn: () => mixed): void;
   isClient: boolean;
   isCordova: boolean;
+  isDevelopment: boolean;
   isProduction: boolean;
   isServer: boolean;
+  loginWithFacebook(
+    options?: ?$Shape<{
+      requestPermissions: $ReadOnlyArray<string>,
+      requestOfflineToken: boolean,
+      loginUrlParameters: {},
+      loginHint: string,
+      loginStyle: string,
+      redirectUrl: string,
+      auth_type: string
+    }>,
+    callback?: (?(Error | Meteor$Error)) => mixed
+  ): void;
+  loginWithGoogle(
+    options?: ?$Shape<{
+      requestPermissions: $ReadOnlyArray<string>,
+      requestOfflineToken: boolean,
+      loginUrlParameters: {},
+      loginHint: string,
+      loginStyle: string,
+      redirectUrl: string
+    }>,
+    callback?: (?(Error | Meteor$Error)) => mixed
+  ): void;
   loginWithPassword(
     user: string | {|email: string|} | {|id: string|} | {|username: string|},
     password: string,
-    callback?: (?Error) => mixed
+    callback?: (?(Error | Meteor$Error)) => mixed
   ): void;
-  logout(callback?: (?Error) => mixed): void;
+  logout(callback?: (?(Error | Meteor$Error)) => mixed): void;
   methods({[name: string]: (...args: mixed[]) => mixed}): void;
   publish(name: string, publication: (...args: mixed[]) => mixed): void;
   publish({[name: string]: (...args: mixed[]) => mixed}): void;
@@ -104,7 +140,10 @@ declare type Meteor$User = {
   createdAt?: number,
   emails?: {address: string, verified?: boolean}[],
   profile?: mixed,
-  services?: mixed,
+  services?: {
+    facebook?: {id: string, accessToken: string},
+    google?: {accessToken: string}
+  },
   username?: string,
   [field: string]: mixed
 };

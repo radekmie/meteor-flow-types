@@ -1,5 +1,6 @@
 declare class Meteor$Mongo {
   Collection: typeof Meteor$Mongo$Collection;
+  Cursor: typeof Meteor$Mongo$Cursor;
 }
 
 declare class Meteor$Mongo$BulkOp {
@@ -56,25 +57,25 @@ declare class Meteor$Mongo$Collection<T> {
   }): boolean;
   find<U>(
     selector?: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
-    options?: {
-      fields?: Meteor$Mongo$FieldSpecifier,
-      limit?: number,
-      reactive?: boolean,
-      skip?: number,
-      sort?: Meteor$Mongo$SortSpecifier,
-      transform?: T => U
-    }
+    options?: ?$Shape<{
+      fields: Meteor$Mongo$FieldSpecifier,
+      limit: number,
+      reactive: boolean,
+      skip: number,
+      sort: Meteor$Mongo$SortSpecifier,
+      transform: T => U
+    }>
   ): Meteor$Mongo$Cursor<U>;
   findOne<U>(
     selector?: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
-    options?: {
-      fields?: Meteor$Mongo$FieldSpecifier,
-      limit?: number,
-      reactive?: boolean,
-      skip?: number,
-      sort?: Meteor$Mongo$SortSpecifier,
-      transform?: T => U
-    }
+    options?: ?$Shape<{
+      fields: Meteor$Mongo$FieldSpecifier,
+      limit: number,
+      reactive: boolean,
+      skip: number,
+      sort: Meteor$Mongo$SortSpecifier,
+      transform: T => U
+    }>
   ): ?U;
   insert(doc: T): string;
   insert(

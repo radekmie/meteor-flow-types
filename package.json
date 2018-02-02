@@ -1,0 +1,37 @@
+{
+  "name": "meteor-flow-types",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "babel-eslint": "8.2.1",
+    "eslint": "4.16.0",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-plugin-flowtype": "2.42.0",
+    "eslint-plugin-prettier": "2.6.0",
+    "prettier": "1.10.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:flowtype/recommended",
+      "plugin:prettier/recommended"
+    ],
+    "plugins": [
+      "flowtype",
+      "prettier"
+    ],
+    "rules": {
+      "flowtype/no-types-missing-file-annotation": "off",
+      "flowtype/space-after-type-colon": "off",
+      "prettier/prettier": [
+        "error",
+        {
+          "bracketSpacing": false,
+          "singleQuote": true
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "test": "eslint *.js"
+  }
+}

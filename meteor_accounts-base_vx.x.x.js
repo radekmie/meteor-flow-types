@@ -15,6 +15,7 @@ declare class Meteor$Accounts {
   findUserByEmail(email: string): null | Meteor$User;
   forgotPassword(options: {email: string}, fn?: (?Error) => void): void;
   loggingIn(): boolean;
+  loginServicesConfigured(): boolean;
   logout(fn?: (?Error) => void): void;
   logoutOtherClients(fn?: (?Error) => void): void;
   onCreateUser(
@@ -27,6 +28,28 @@ declare class Meteor$Accounts {
     fn: (user: Meteor$User, connection: Meteor$ConnectionHandle) => void
   ): void;
   resetPassword(token: string, password: string, fn?: (?Error) => void): void;
+  sendResetPasswordEmail(
+    userId: string,
+    email?: string,
+    extraTokenData?: {}
+  ): {
+    email: string,
+    user: Meteor$User,
+    token: string,
+    url: string,
+    options: {}
+  };
+  sendVerificationEmail(
+    userId: string,
+    email?: string,
+    extraTokenData?: {}
+  ): {
+    email: string,
+    user: Meteor$User,
+    token: string,
+    url: string,
+    options: {}
+  };
   urls: {
     enrollAccount: (token: string) => string,
     resetPassword: (token: string) => string,
