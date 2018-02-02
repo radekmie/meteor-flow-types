@@ -4,7 +4,7 @@ declare class Meteor$Tracker {
   afterFlush(callback: () => mixed): void;
   autorun(
     fn: (computation: Meteor$Tracker$Computation) => void,
-    options?: { onError?: (Error) => mixed }
+    options?: {onError?: Error => mixed}
   ): Meteor$Tracker$Computation;
   currentComputation: null | Meteor$Tracker$Computation;
 }
@@ -25,8 +25,8 @@ declare class Meteor$Tracker$Dependency {
   hasDependents(): boolean;
 }
 
-declare module "meteor/tracker" {
+declare module 'meteor/tracker' {
   declare module.exports: {
-    Tracker: Meteor$Tracker,
+    Tracker: Meteor$Tracker
   };
 }

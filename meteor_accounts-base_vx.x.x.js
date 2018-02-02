@@ -9,35 +9,51 @@ declare class Meteor$Accounts {
     oauthSecretKey?: string,
     passwordEnrollTokenExpirationInDays?: number,
     passwordResetTokenExpirationInDays?: number,
-    restrictCreationByEmailDomain?: string | ((string) => ?boolean),
-    sendVerificationEmail?: boolean,
+    restrictCreationByEmailDomain?: string | (string => ?boolean),
+    sendVerificationEmail?: boolean
   }): void;
   findUserByEmail(email: string): null | Meteor$User;
-  forgotPassword(options: { email: string }, fn?: (?Error) => void): void;
+  forgotPassword(options: {email: string}, fn?: (?Error) => void): void;
   loggingIn(): boolean;
   loginServicesConfigured(): boolean;
   logout(fn?: (?Error) => void): void;
   logoutOtherClients(fn?: (?Error) => void): void;
-  onCreateUser(fn: (options: { [string]: mixed }, user: Meteor$User) => Meteor$User): void;
+  onCreateUser(
+    fn: (options: {[string]: mixed}, user: Meteor$User) => Meteor$User
+  ): void;
   onEmailVerificationLink(fn: (token: string, done: () => void) => void): void;
-  onLogin(fn: () => void): { stop(): void };
-  onLoginFailure(fn: () => void): { stop(): void };
-  onLogout(fn: (user: Meteor$User, connection: Meteor$ConnectionHandle) => void): void;
+  onLogin(fn: () => void): {stop(): void};
+  onLoginFailure(fn: () => void): {stop(): void};
+  onLogout(
+    fn: (user: Meteor$User, connection: Meteor$ConnectionHandle) => void
+  ): void;
   resetPassword(token: string, password: string, fn?: (?Error) => void): void;
   sendResetPasswordEmail(
     userId: string,
     email?: string,
     extraTokenData?: {}
-  ): { email: string, user: Meteor$User, token: string, url: string, options: {} };
+  ): {
+    email: string,
+    user: Meteor$User,
+    token: string,
+    url: string,
+    options: {}
+  };
   sendVerificationEmail(
     userId: string,
     email?: string,
     extraTokenData?: {}
-  ): { email: string, user: Meteor$User, token: string, url: string, options: {} };
+  ): {
+    email: string,
+    user: Meteor$User,
+    token: string,
+    url: string,
+    options: {}
+  };
   urls: {
     enrollAccount: (token: string) => string,
     resetPassword: (token: string) => string,
-    verifyEmail: (token: string) => string,
+    verifyEmail: (token: string) => string
   };
   validateLoginAttempt(
     fn: (
@@ -47,7 +63,7 @@ declare class Meteor$Accounts {
           methodArguments: mixed[],
           methodName: string,
           type: string,
-          user: Meteor$User,
+          user: Meteor$User
         |}
       | {|
           allowed: false,
@@ -56,14 +72,14 @@ declare class Meteor$Accounts {
           methodArguments: mixed[],
           methodName: string,
           type: string,
-          user?: Meteor$User,
+          user?: Meteor$User
         |}
     ) => boolean
-  ): { stop(): void };
+  ): {stop(): void};
 }
 
-declare module "meteor/accounts-base" {
+declare module 'meteor/accounts-base' {
   declare module.exports: {
-    Accounts: Meteor$Accounts,
+    Accounts: Meteor$Accounts
   };
 }
