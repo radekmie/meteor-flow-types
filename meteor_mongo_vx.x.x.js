@@ -30,6 +30,17 @@ declare class Meteor$Mongo$Collection<T> {
       weights?: {}
     |}
   ): void;
+  allow(options: {
+    fetch?: string | string[],
+    insert?: (userId: string, doc: T) => boolean,
+    remove?: (userId: string, doc: T) => boolean,
+    update?: (
+      userId: string,
+      doc: T,
+      fieldNames: string[],
+      modifier: Meteor$Mongo$Modifier
+    ) => boolean
+  }): boolean;
   allow<U>(options: {
     fetch?: string | string[],
     insert?: (userId: string, doc: U) => boolean,
@@ -43,6 +54,17 @@ declare class Meteor$Mongo$Collection<T> {
     ) => boolean
   }): boolean;
   constructor(name: string): void;
+  deny(options: {
+    fetch?: string | string[],
+    insert?: (userId: string, doc: T) => boolean,
+    remove?: (userId: string, doc: T) => boolean,
+    update?: (
+      userId: string,
+      doc: T,
+      fieldNames: string[],
+      modifier: Meteor$Mongo$Modifier
+    ) => boolean
+  }): boolean;
   deny<U>(options: {
     fetch?: string | string[],
     insert?: (userId: string, doc: U) => boolean,
@@ -55,9 +77,19 @@ declare class Meteor$Mongo$Collection<T> {
       modifier: Meteor$Mongo$Modifier
     ) => boolean
   }): boolean;
+  find(
+    selector?: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
+    options?: $Shape<{
+      fields: Meteor$Mongo$FieldSpecifier,
+      limit: number,
+      reactive: boolean,
+      skip: number,
+      sort: Meteor$Mongo$SortSpecifier
+    }>
+  ): Meteor$Mongo$Cursor<T>;
   find<U>(
     selector?: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
-    options?: ?$Shape<{
+    options?: $Shape<{
       fields: Meteor$Mongo$FieldSpecifier,
       limit: number,
       reactive: boolean,
@@ -66,6 +98,16 @@ declare class Meteor$Mongo$Collection<T> {
       transform: T => U
     }>
   ): Meteor$Mongo$Cursor<U>;
+  findOne(
+    selector?: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
+    options?: ?$Shape<{
+      fields: Meteor$Mongo$FieldSpecifier,
+      limit: number,
+      reactive: boolean,
+      skip: number,
+      sort: Meteor$Mongo$SortSpecifier
+    }>
+  ): ?T;
   findOne<U>(
     selector?: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
     options?: ?$Shape<{
