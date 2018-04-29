@@ -6,12 +6,12 @@ declare class Meteor$AccountsPassword extends Meteor$Accounts {
   _hashPassword(password: string): {|algorithm: string, digest: string|};
   addEmail(userId: string, email: string, verified?: boolean): void;
   createUser(
-    options: {
-      email?: string,
+    options: $Shape<{
+      email: string,
       password: string | {|algorithm: string, digest: string|},
-      profile?: {},
-      username?: string
-    },
+      profile: {},
+      username: string
+    }>,
     callback?: (?Error) => mixed
   ): void;
   emailTemplates: {
