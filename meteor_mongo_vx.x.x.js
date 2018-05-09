@@ -161,7 +161,9 @@ declare class Meteor$Mongo$Cursor<BaseEntryT> {
   count(): number;
   fetch(): BaseEntryT[];
   forEach((BaseEntryT) => mixed): void;
-  map<TransformedEntryT>((BaseEntryT) => TransformedEntryT): TransformedEntryT[];
+  map<TransformedEntryT>(
+    (BaseEntryT) => TransformedEntryT
+  ): TransformedEntryT[];
 }
 
 declare type Meteor$Mongo$FieldSpecifier = {
