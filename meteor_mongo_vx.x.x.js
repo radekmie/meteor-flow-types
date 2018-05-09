@@ -17,7 +17,7 @@ declare class Meteor$Mongo$BulkOpHandle {
   updateOne(modifier: Meteor$Mongo$Modifier): void;
 }
 
-declare class Meteor$Mongo$Collection<T> {
+declare class Meteor$Mongo$Collection<BaseEntryT> {
   _ensureIndex(
     index: {[fieldPath: string]: -1 | 1 | boolean | string},
     options?: {|
@@ -32,23 +32,23 @@ declare class Meteor$Mongo$Collection<T> {
   ): void;
   allow(options: {
     fetch?: string | string[],
-    insert?: (userId: string, doc: T) => boolean,
-    remove?: (userId: string, doc: T) => boolean,
+    insert?: (userId: string, doc: BaseEntryT) => boolean,
+    remove?: (userId: string, doc: BaseEntryT) => boolean,
     update?: (
       userId: string,
-      doc: T,
+      doc: BaseEntryT,
       fieldNames: string[],
       modifier: Meteor$Mongo$Modifier
     ) => boolean
   }): boolean;
-  allow<U>(options: {
+  allow<TransformedEntryT>(options: {
     fetch?: string | string[],
-    insert?: (userId: string, doc: U) => boolean,
-    remove?: (userId: string, doc: U) => boolean,
-    transform?: T => U,
+    insert?: (userId: string, doc: TransformedEntryT) => boolean,
+    remove?: (userId: string, doc: TransformedEntryT) => boolean,
+    transform?: BaseEntryT => TransformedEntryT,
     update?: (
       userId: string,
-      doc: U,
+      doc: TransformedEntryT,
       fieldNames: string[],
       modifier: Meteor$Mongo$Modifier
     ) => boolean
@@ -56,23 +56,23 @@ declare class Meteor$Mongo$Collection<T> {
   constructor(name: string): void;
   deny(options: {
     fetch?: string | string[],
-    insert?: (userId: string, doc: T) => boolean,
-    remove?: (userId: string, doc: T) => boolean,
+    insert?: (userId: string, doc: BaseEntryT) => boolean,
+    remove?: (userId: string, doc: BaseEntryT) => boolean,
     update?: (
       userId: string,
-      doc: T,
+      doc: BaseEntryT,
       fieldNames: string[],
       modifier: Meteor$Mongo$Modifier
     ) => boolean
   }): boolean;
-  deny<U>(options: {
+  deny<TransformedEntryT>(options: {
     fetch?: string | string[],
-    insert?: (userId: string, doc: U) => boolean,
-    remove?: (userId: string, doc: U) => boolean,
-    transform?: T => U,
+    insert?: (userId: string, doc: TransformedEntryT) => boolean,
+    remove?: (userId: string, doc: TransformedEntryT) => boolean,
+    transform?: BaseEntryT => TransformedEntryT,
     update?: (
       userId: string,
-      doc: U,
+      doc: TransformedEntryT,
       fieldNames: string[],
       modifier: Meteor$Mongo$Modifier
     ) => boolean
@@ -86,8 +86,8 @@ declare class Meteor$Mongo$Collection<T> {
       skip: number,
       sort: Meteor$Mongo$SortSpecifier
     }>
-  ): Meteor$Mongo$Cursor<T>;
-  find<U>(
+  ): Meteor$Mongo$Cursor<BaseEntryT>;
+  find<TransformedEntryT>(
     selector?: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
     options?: $Shape<{
       fields: Meteor$Mongo$FieldSpecifier,
@@ -95,9 +95,9 @@ declare class Meteor$Mongo$Collection<T> {
       reactive: boolean,
       skip: number,
       sort: Meteor$Mongo$SortSpecifier,
-      transform: T => U
+      transform: BaseEntryT => TransformedEntryT
     }>
-  ): Meteor$Mongo$Cursor<U>;
+  ): Meteor$Mongo$Cursor<TransformedEntryT>;
   findOne(
     selector?: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
     options?: ?$Shape<{
@@ -107,8 +107,8 @@ declare class Meteor$Mongo$Collection<T> {
       skip: number,
       sort: Meteor$Mongo$SortSpecifier
     }>
-  ): ?T;
-  findOne<U>(
+  ): ?BaseEntryT;
+  findOne<TransformedEntryT>(
     selector?: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
     options?: ?$Shape<{
       fields: Meteor$Mongo$FieldSpecifier,
@@ -116,15 +116,15 @@ declare class Meteor$Mongo$Collection<T> {
       reactive: boolean,
       skip: number,
       sort: Meteor$Mongo$SortSpecifier,
-      transform: T => U
+      transform: BaseEntryT => TransformedEntryT
     }>
-  ): ?U;
-  insert(doc: T): string;
+  ): ?TransformedEntryT;
+  insert(doc: BaseEntryT): string;
   insert(
-    doc: T,
+    doc: BaseEntryT,
     callback: ((Error, void) => mixed) & ((void, string) => mixed)
   ): void;
-  rawCollection(): Meteor$Mongo$RawCollection<T>;
+  rawCollection(): Meteor$Mongo$RawCollection<BaseEntryT>;
   remove(
     selector: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector
   ): void;
@@ -157,11 +157,13 @@ declare class Meteor$Mongo$Collection<T> {
   ): void;
 }
 
-declare class Meteor$Mongo$Cursor<T> {
+declare class Meteor$Mongo$Cursor<BaseEntryT> {
   count(): number;
-  fetch(): T[];
-  forEach((T) => mixed): void;
-  map<U>((T) => U): U[];
+  fetch(): BaseEntryT[];
+  forEach((BaseEntryT) => mixed): void;
+  map<TransformedEntryT>(
+    (BaseEntryT) => TransformedEntryT
+  ): TransformedEntryT[];
 }
 
 declare type Meteor$Mongo$FieldSpecifier = {
