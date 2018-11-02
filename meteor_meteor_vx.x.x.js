@@ -107,11 +107,7 @@ declare class Meteor$Meteor {
     retryTime?: number,
     reason?: string
   |};
-
-  subscribe(name: string): Meteor$SubscriptionHandle;
-  // Define all subscription that need a parameter here, e. g.
-  // subscribe(name: 'posts', limit: number): Meteor$SubscriptionHandle;
-
+  subscribe(name: string, ...args: mixed[]): Meteor$SubscriptionHandle;
   user(): ?Meteor$User;
   userId(): ?string;
   users: Meteor$Mongo$Collection<Meteor$User>;

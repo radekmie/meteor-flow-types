@@ -8,8 +8,6 @@ declare class Meteor$ValidatedMethod<T, ResultT> {
   name: string;
   run(T, ...mixed[]): ResultT;
   validate(Object): mixed;
-
-  schema: ?SimpleSchema;
 }
 
 declare module 'meteor/mdg:validated-method' {

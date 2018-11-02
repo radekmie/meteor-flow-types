@@ -53,7 +53,7 @@ declare type Meteor$WebApp$Request = {
 };
 
 declare class Meteor$WebAppInternals {
-  enableSubresourceIntegrity(use_credentials?: boolean): void;
+  enableSubresourceIntegrity(useCredentials?: boolean): void;
   registerBoilerplateDataCallback(
     key: string,
     fn: (
