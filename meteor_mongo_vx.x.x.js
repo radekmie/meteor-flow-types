@@ -17,6 +17,8 @@ declare class Meteor$Mongo$BulkOpHandle {
   updateOne(modifier: Meteor$Mongo$Modifier): void;
 }
 
+declare type OptionalId<T> = {| ...$Exact<T>, _id: ?string |};
+
 declare class Meteor$Mongo$Collection<BaseEntryT> {
   _ensureIndex(
     index: {[fieldPath: string]: -1 | 1 | boolean | string},
@@ -53,6 +55,13 @@ declare class Meteor$Mongo$Collection<BaseEntryT> {
       modifier: Meteor$Mongo$Modifier
     ) => boolean
   }): boolean;
+  attachSchema(
+    schema: SimpleSchema,
+    options?: $Shape<{
+      selector: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
+      transform: boolean,
+    }>,
+  ): void;
   constructor(name: string): void;
   deny(options: {
     fetch?: string | string[],
@@ -119,9 +128,9 @@ declare class Meteor$Mongo$Collection<BaseEntryT> {
       transform: BaseEntryT => TransformedEntryT
     }>
   ): ?TransformedEntryT;
-  insert(doc: BaseEntryT): string;
+  insert(doc: OptionalId<BaseEntryT>): string;
   insert(
-    doc: BaseEntryT,
+    doc: OptionalId<BaseEntryT>,
     callback: ((Error, void) => mixed) & ((void, string) => mixed)
   ): void;
   rawCollection(): Meteor$Mongo$RawCollection<BaseEntryT>;
@@ -132,6 +141,7 @@ declare class Meteor$Mongo$Collection<BaseEntryT> {
     selector: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
     callback: (?Error) => mixed
   ): void;
+  simpleSchema: () => SimpleSchema;
   update(
     selector: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
     modifier: Meteor$Mongo$Modifier,
@@ -188,8 +198,19 @@ declare class Meteor$Mongo$ObjectId {
 declare class Meteor$Mongo$RawCollection<T> {
   bulkWrite(pipeline: {}[]): Promise<{}>;
   deleteMany(selector: Meteor$Mongo$Selector): Promise<{}>;
+  distinct(
+    field: string,
+    query?: Meteor$Mongo$Selector,
+  ): Promise<T[]>;
   insertMany(docs: T[]): Promise<{}>;
   initializeUnorderedBulkOp(): Meteor$Mongo$BulkOp;
+  createIndex(
+    keys: { [string]: 1 | -1 },
+    options?: {
+      name?: string,
+      unique?: boolean,
+    }
+  ): void;
 }
 
 declare type Meteor$Mongo$Selector = {

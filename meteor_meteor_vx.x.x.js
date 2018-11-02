@@ -16,6 +16,7 @@ declare class Meteor$ConnectionHandle {
 }
 
 declare class Meteor$Meteor {
+  _debug: (...args: mixed[]) => void;
   AppCache: Meteor$AppCache;
   Error: typeof Meteor$Error;
   absoluteUrl(
@@ -55,6 +56,7 @@ declare class Meteor$Meteor {
     callback?: ((Error | Meteor$Error, void) => mixed) & ((void, T) => mixed)
   ): void;
   defer(fn: () => mixed): void;
+  disconnect(): void;
   isClient: boolean;
   isCordova: boolean;
   isDevelopment: boolean;
@@ -105,7 +107,11 @@ declare class Meteor$Meteor {
     retryTime?: number,
     reason?: string
   |};
-  subscribe(name: string, ...args: mixed[]): Meteor$SubscriptionHandle;
+
+  subscribe(name: string): Meteor$SubscriptionHandle;
+  // Define all subscription that need a parameter here, e. g.
+  // subscribe(name: 'posts', limit: number): Meteor$SubscriptionHandle;
+
   user(): ?Meteor$User;
   userId(): ?string;
   users: Meteor$Mongo$Collection<Meteor$User>;
@@ -128,6 +134,7 @@ declare class Meteor$Error {
   details?: string;
   error: string | number;
   reason?: string;
+  message: string;
 }
 
 declare class Meteor$SubscriptionHandle {
