@@ -5,7 +5,7 @@ declare type Meteor$Accounts$SuccessfulLoginAttempt = {|
   methodName: string,
   type: string,
   user: Meteor$User
-|}
+|};
 
 declare type Meteor$Accounts$FailedLoginAttempt = {|
   allowed: false,
@@ -15,7 +15,7 @@ declare type Meteor$Accounts$FailedLoginAttempt = {|
   methodName: string,
   type: string,
   user?: Meteor$User
-|}
+|};
 
 declare class Meteor$Accounts {
   _storedLoginToken(): string;
@@ -24,7 +24,7 @@ declare class Meteor$Accounts {
   callLoginMethod(options: {
     methodName?: string,
     methodArguments?: mixed[],
-    userCallback: (?Meteor$Error) => void,
+    userCallback: (?Meteor$Error) => void
   }): void;
   config(options: {
     ambiguousErrorMessages?: boolean,
@@ -47,13 +47,22 @@ declare class Meteor$Accounts {
   ): void;
   onEmailVerificationLink(fn: (token: string, done: () => void) => void): void;
   onLogin(fn: (Meteor$Accounts$SuccessfulLoginAttempt) => void): {stop(): void};
-  onLoginFailure(fn: (Meteor$Accounts$FailedLoginAttempt) => void): {stop(): void};
+  onLoginFailure(
+    fn: (Meteor$Accounts$FailedLoginAttempt) => void
+  ): {stop(): void};
   onLogout(
     fn: (user: Meteor$User, connection: Meteor$ConnectionHandle) => void
   ): void;
   removeDefaultRateLimit: () => void;
-  resetPassword(token: string, password: string, fn?: (?Meteor$Error) => void): void;
-  registerLoginHandler(name: string, fn: (options: { [string]: mixed }) => ?{ userId: string }): void;
+  resetPassword(
+    token: string,
+    password: string,
+    fn?: (?Meteor$Error) => void
+  ): void;
+  registerLoginHandler(
+    name: string,
+    fn: (options: {[string]: mixed}) => ?{userId: string}
+  ): void;
   sendEnrollmentEmail(
     userId: string,
     email?: string,
@@ -93,7 +102,10 @@ declare class Meteor$Accounts {
     verifyEmail: (token: string) => string
   };
   validateLoginAttempt(
-    fn: (Meteor$Accounts$SuccessfulLoginAttempt | Meteor$Accounts$FailedLoginAttempt) => boolean
+    fn: (
+      | Meteor$Accounts$SuccessfulLoginAttempt
+      | Meteor$Accounts$FailedLoginAttempt
+    ) => boolean
   ): {stop(): void};
 }
 

@@ -1,5 +1,8 @@
-
-declare type SimpleSchema$ValidationError = {name: string, value: string, type: string};
+declare type SimpleSchema$ValidationError = {
+  name: string,
+  value: string,
+  type: string
+};
 
 declare class SimpleSchema$Context {
   validate(Object): boolean;
@@ -9,10 +12,10 @@ declare class SimpleSchema$Context {
 
 declare class SimpleSchema {
   constructor(
-    schema: { [string]: mixed },
+    schema: {[string]: mixed},
     options?: {
-      requiredByDefault?: boolean,
-    },
+      requiredByDefault?: boolean
+    }
   ): void;
 
   clean(Object): Object;
@@ -23,14 +26,14 @@ declare class SimpleSchema {
   validate(Object): boolean;
 
   static debug: boolean;
-  static oneOf(...{ [string]: mixed }[]): SimpleSchema;
+  static oneOf(...{[string]: mixed}[]): SimpleSchema;
   static Integer: string;
   static RegEx: {
     Id: RegExp,
-    EmailWithTLD: RegExp,
-  }
+    EmailWithTLD: RegExp
+  };
 }
 
 declare module 'simpl-schema' {
-  declare export default typeof SimpleSchema;
+  declare export default typeof SimpleSchema
 }

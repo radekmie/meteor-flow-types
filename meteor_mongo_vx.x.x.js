@@ -17,7 +17,7 @@ declare class Meteor$Mongo$BulkOpHandle {
   updateOne(modifier: Meteor$Mongo$Modifier): void;
 }
 
-declare type OptionalId<T> = {| ...$Exact<T>, _id: ?string |};
+declare type OptionalId<T> = {|...$Exact<T>, _id: ?string|};
 
 declare class Meteor$Mongo$Collection<BaseEntryT> {
   _ensureIndex(
@@ -59,8 +59,8 @@ declare class Meteor$Mongo$Collection<BaseEntryT> {
     schema: SimpleSchema,
     options?: $Shape<{
       selector: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
-      transform: boolean,
-    }>,
+      transform: boolean
+    }>
   ): void;
   constructor(name: string): void;
   deny(options: {
@@ -198,17 +198,14 @@ declare class Meteor$Mongo$ObjectId {
 declare class Meteor$Mongo$RawCollection<T> {
   bulkWrite(pipeline: {}[]): Promise<{}>;
   deleteMany(selector: Meteor$Mongo$Selector): Promise<{}>;
-  distinct(
-    field: string,
-    query?: Meteor$Mongo$Selector,
-  ): Promise<T[]>;
+  distinct(field: string, query?: Meteor$Mongo$Selector): Promise<T[]>;
   insertMany(docs: T[]): Promise<{}>;
   initializeUnorderedBulkOp(): Meteor$Mongo$BulkOp;
   createIndex(
-    keys: { [string]: 1 | -1 },
+    keys: {[string]: 1 | -1},
     options?: {
       name?: string,
-      unique?: boolean,
+      unique?: boolean
     }
   ): void;
 }

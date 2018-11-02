@@ -3,7 +3,7 @@ import type {Server} from 'http';
 
 class npm$connect$IncomingMessage extends http$IncomingMessage {
   originalUrl: string;
-  _parsedUrl: { pathname: string };
+  _parsedUrl: {pathname: string};
 }
 
 class npm$connect$ServerResponse extends http$ServerResponse {}

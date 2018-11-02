@@ -10,10 +10,7 @@ declare class Meteor$AccountsPassword extends Meteor$Accounts {
     newPassword: string,
     callback?: (?Error) => mixed
   ): void;
-  createUser(
-    options: Object,
-    callback?: (?Error) => mixed
-  ): string;
+  createUser(options: Object, callback?: (?Error) => mixed): string;
   emailTemplates: {
     enrollAccount: {
       subject: (user: Meteor$User) => string,
@@ -30,8 +27,14 @@ declare class Meteor$AccountsPassword extends Meteor$Accounts {
       text: (user: Meteor$User, url: string) => string
     }
   };
-  generateResetToken(userId: string, email?: string, reason?: string): {
-    email: string, user: Meteor$User, token: string
+  generateResetToken(
+    userId: string,
+    email?: string,
+    reason?: string
+  ): {
+    email: string,
+    user: Meteor$User,
+    token: string
   };
   insertUserDoc(user: Object, profile: Object): string;
   removeEmail(userId: string, email: string): void;

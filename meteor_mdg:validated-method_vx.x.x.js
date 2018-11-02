@@ -1,8 +1,8 @@
 declare class Meteor$ValidatedMethod<T, ResultT> {
   constructor({
     name: string,
-    validate?: (Object) => mixed,
-    run: (T) => ResultT,
+    validate?: Object => mixed,
+    run: T => ResultT
   }): void;
   call(args: T, fn?: (?Meteor$Error, ResultT) => mixed): ResultT;
   name: string;
