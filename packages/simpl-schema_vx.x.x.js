@@ -26,6 +26,10 @@ declare class SimpleSchema {
   validate(Object): boolean;
 
   static debug: boolean;
+  static ErrorTypes: {
+    REQUIRED: string,
+    KEY_NOT_IN_SCHEMA: string
+  };
   static oneOf(...{[string]: mixed}[]): SimpleSchema;
   static Integer: string;
   static RegEx: {

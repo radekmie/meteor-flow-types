@@ -58,13 +58,6 @@ declare class Meteor$Mongo$Collection<BaseEntryT> {
       modifier: Meteor$Mongo$Modifier
     ) => boolean
   }): boolean;
-  attachSchema(
-    schema: SimpleSchema,
-    options?: $Shape<{
-      selector: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
-      transform: boolean
-    }>
-  ): void;
   constructor(name: string): void;
   deny(options: {
     fetch?: string | string[],
