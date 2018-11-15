@@ -22,5 +22,8 @@ module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/.meteor/local/build/pro
 ```
 
 #### aldeed:collection2
-1. In `meteor_mongo_vx.x.x.js` remove the part saying `declare module 'meteor/mongo' {…}`
-2. In `meteor_aldeed:collection2_vx.x.x.js` replace `meteor/aldeed:collection2` with `meteor/mongo`.
+
+Collection2 needs type casting, for example
+```
+const Posts: Aldeed$Collection2<PostProps> = (new Mongo.Collection('documents'): any);
+```

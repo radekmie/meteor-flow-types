@@ -19,7 +19,7 @@ declare class Meteor$Mongo$BulkOpHandle {
 
 declare type OptionalId<T> = {|
   ...$Exact<T>,
-  _id: null | string | Meteor$Mongo$ObjectId
+  _id: $PropertyType<T, '_id'> | null
 |};
 
 declare class Meteor$Mongo$Collection<BaseEntryT> {
@@ -137,7 +137,6 @@ declare class Meteor$Mongo$Collection<BaseEntryT> {
     selector: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
     callback: (?Error) => mixed
   ): void;
-  simpleSchema: () => SimpleSchema;
   update(
     selector: number | string | Meteor$Mongo$ObjectId | Meteor$Mongo$Selector,
     modifier: Meteor$Mongo$Modifier,
