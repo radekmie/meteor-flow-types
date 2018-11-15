@@ -193,7 +193,7 @@ declare class Meteor$Mongo$ObjectId {
 declare class Meteor$Mongo$RawCollection<T> {
   bulkWrite(pipeline: {}[]): Promise<{}>;
   deleteMany(selector: Meteor$Mongo$Selector): Promise<{}>;
-  distinct(field: string, query?: Meteor$Mongo$Selector): Promise<mixed[]>;
+  distinct<X>(field: string, query?: Meteor$Mongo$Selector): Promise<X[]>;
   insertMany(docs: T[]): Promise<{}>;
   initializeUnorderedBulkOp(): Meteor$Mongo$BulkOp;
   createIndex(
