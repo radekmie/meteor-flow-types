@@ -3,6 +3,7 @@ import type {Server} from 'http';
 
 class npm$connect$IncomingMessage extends http$IncomingMessage {
   originalUrl: string;
+  _parsedUrl: {pathname: string};
 }
 
 class npm$connect$ServerResponse extends http$ServerResponse {}
@@ -52,6 +53,7 @@ declare type Meteor$WebApp$Request = {
 };
 
 declare class Meteor$WebAppInternals {
+  enableSubresourceIntegrity(useCredentials?: boolean): void;
   registerBoilerplateDataCallback(
     key: string,
     fn: (
@@ -66,6 +68,7 @@ declare class Meteor$WebAppInternals {
       string
     ) => boolean
   ): void;
+  setBundledJsCssPrefix(prefix: string): void;
   staticFiles: {
     [string]: {
       absolutePath: string,
